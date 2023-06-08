@@ -1,10 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Form from "./components/Form";
+import List from "./components/List";
+import './style.scss'
 
 function App() {
   return (
-    <h1>Projeto pomodoro</h1>
+    <div className="AppStyle">
+      <h1>Projeto pomodoro</h1>
+      <Form />
+      <List />
+    </div>
   );
 }
 
