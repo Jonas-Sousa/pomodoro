@@ -1,22 +1,35 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../Button";
 import style from "./Form.module.scss"
 import ITarefa from "../../types/ITarefas"
+import { v4 as uuidv4 } from 'uuid'
 
 export default function Form({ setTarefas }: { setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>> }) {
 
     
     const [tarefa, setTarefa] = useState("");
     const [tempo, setTempo] = useState("00:00");
+    const formRef = useRef<HTMLFormElement>(null);
+
     function adicionarTarefa(event: React.FormEvent){
         event.preventDefault()
         const novaTarefa: ITarefa = {
             tarefa: tarefa,
-            tempo: tempo
+            tempo: tempo,
+            selecionado: false,
+            completado: false,
+            id: uuidv4()
+            
         }
         setTarefas( (tarefasAntigas: ITarefa[]) => 
             [...tarefasAntigas, novaTarefa]
         )
+        if(formRef.current) {
+            formRef.current.reset()
+        }
+        setTarefa("")
+        setTempo("00:00")
+        
     }
     return(
         <form className={style.novaTarefa} onSubmit={adicionarTarefa}>
