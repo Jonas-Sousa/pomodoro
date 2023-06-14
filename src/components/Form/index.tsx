@@ -1,13 +1,32 @@
+import { useState } from "react";
 import Button from "../Button";
 import style from "./Form.module.scss"
-export default function Form() {
+import ITarefa from "../../types/ITarefas"
+
+export default function Form({ setTarefas }: { setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>> }) {
+
+    
+    const [tarefa, setTarefa] = useState("");
+    const [tempo, setTempo] = useState("00:00");
+    function adicionarTarefa(event: React.FormEvent){
+        event.preventDefault()
+        const novaTarefa: ITarefa = {
+            tarefa: tarefa,
+            tempo: tempo
+        }
+        setTarefas( (tarefasAntigas: ITarefa[]) => 
+            [...tarefasAntigas, novaTarefa]
+        )
+    }
     return(
-        <form className={style.novaTarefa}>
+        <form className={style.novaTarefa} onSubmit={adicionarTarefa}>
             <div className={style.inputContainer}>
                 <label htmlFor="tarefa">Adicione um novo estudo</label>
                 <input 
                     type="text" 
                     name="tarefa"
+                    value={tarefa}
+                    onChange={(event) => setTarefa(event.target.value)}
                     id="tarefa"
                     placeholder="O que você quer estudar"
                     required
@@ -19,14 +38,17 @@ export default function Form() {
                     type="time"
                     step="1"
                     name="tempo"
+                    value={tempo}
+                    onChange={(event) => setTempo(event.target.value)}
                     id="tempo"
                     min="00:00:00"
                     max="01:30:00"
                 />
             </div>
-            <Button>
+            <Button type="submit">
                 Adicionar
             </Button>
         </form>
     )
 }
+

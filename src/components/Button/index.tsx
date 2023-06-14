@@ -1,5 +1,10 @@
 import style from './Button.module.scss'
 
-export default function Button({children}: {children: String}) {
-  return <button className={style.botao}>{children}</button>;
+interface ButtonProps {
+  type?: "button" | "submit" | "reset" | undefined;
+  children: string
+}
+
+export default function Button({type, children}: ButtonProps){
+  return <button className={style.botao} type={type}>{children}</button>;
 }
