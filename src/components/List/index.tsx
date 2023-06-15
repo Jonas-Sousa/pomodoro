@@ -1,7 +1,7 @@
 import ITarefa from "../../types/ITarefas"
 import Item from "./Item"
 import style from "./List.module.scss"
-import { v4 as uuidv4 } from 'uuid'
+
 
 interface Props {
     tarefas: ITarefa[],
